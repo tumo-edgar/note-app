@@ -1,36 +1,41 @@
 <template>
-  <div v-for="pix in arr">
-     <PixCounter v-if="pix.age <= 10" :name="pix.name" :age="pix.age" :count="pix.count" />
-  </div>
- 
+  <main class="main">
+    <h1>Note App</h1>
 
-  <RouterView />
+    <div class="notes">
+      <Card />
+    </div>
+
+  </main>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
-import PixCounter from './components/PixCounter.vue'
-import { ref } from 'vue';
-
-const arr = ref([
-  {
-    name: 'Luna',
-    age: 5,
-    count: 2
-  },
-  {
-    name: 'John',
-    age: 12,
-    count: 34
-  },
-  {
-    name: 'Aaaa',
-    age: 3,
-    count: 5
-  },
-
-])
+import Card from './components/Card.vue'
 
 </script>
 
-<style scoped></style>
+<style>
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  color: #000;
+}
+
+main.main {
+  background: linear-gradient(128deg, rgba(135, 246, 180, 0.84) 12.75%, rgba(50, 180, 187, 0.67) 83.4%);
+  width: 100%;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  padding: 24px;
+}
+</style>

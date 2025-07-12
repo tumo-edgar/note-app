@@ -3,26 +3,50 @@
     <h1>Note App</h1>
 
     <div class="notes">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <Card 
+        v-for="item in notes" 
+        :title="item.title" 
+        :content="item.content" 
+        :time="item.time" 
+      />
     </div>
 
-    <AddButton />
+    <AddButton @click="togglePopup" />
+
+    <AddNewNote 
+      v-if="isVisible"
+      @onClose="togglePopup" 
+      @onSave="addNote" 
+     />
   </main>
 </template>
 
 <script setup>
 import Card from './components/Card.vue'
 import AddButton from './components/AddButton.vue';
+import AddNewNote from './components/AddNewNote.vue';
+import { ref } from 'vue';
+
+const isVisible = ref(false);
+const notes = ref([])
+
+function addNote(title, content) {
+  let note = {
+    title: title,
+    content: content,
+    time: (new Date()).toLocaleDateString()
+  }
+
+  notes.value.push(note);
+}
+
+const togglePopup = () => {
+  isVisible.value = !isVisible.value
+}
 
 </script>
 
 <style>
-
 body,
 #app {
   width: 100%;

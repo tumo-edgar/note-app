@@ -3,16 +3,19 @@
         <div class="close">
             <CloseButton />
         </div>
-        <p class="title">My Title</p>
+        <p class="title">{{ props.title }}</p>
         <p class="content">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio et, temporibus obcaecati est quas vero iste, dolorum voluptate libero praesentium fugit, debitis delectus itaque optio. Dolorum, aut veniam! Id, obcaecati.
+            {{ props.content }}
         </p>
-        <p class="time">05-07-2025 20:30</p>
+        <p class="time">{{ props.time }}</p>
     </div>
 </template>
 
 <script setup>
 import CloseButton from './CloseButton.vue';
+import {defineProps} from 'vue';
+
+const props = defineProps(['title', 'content', 'time'])
 </script>
 
 <style scoped>

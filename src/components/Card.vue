@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="close">
-            <CloseButton />
+            <CloseButton @click="$emit('onDelete')" />
         </div>
         <p class="title">{{ props.title }}</p>
         <p class="content">

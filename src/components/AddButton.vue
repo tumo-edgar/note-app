@@ -1,6 +1,6 @@
 <template>
     <button class="add-btn">
-        +
+       <i class="fa-solid fa-plus"></i>
     </button>
 </template>
 
@@ -17,7 +17,7 @@
     height: 68px;
     border: 2px solid #fff;
     border-radius: 50%;
-    font-size: 50px;
+    font-size: 40px;
     background: #4CCB90;
     color: #fff;
     cursor: pointer;

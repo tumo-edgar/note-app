@@ -1,13 +1,17 @@
 <template>
   <main class="main">
-    <h1>Note App</h1>
+    <div class="header">
+      <h1>Note App</h1>
+      <SearchInput @onSearch="onSearch" />
+    </div>
 
     <div class="notes">
       <Card 
-        v-for="item in notes" 
+        v-for="(item, index) in filteredNotes" 
         :title="item.title" 
         :content="item.content" 
         :time="item.time" 
+        @onDelete="removeNote(index)"
       />
     </div>
 
@@ -25,25 +29,51 @@
 import Card from './components/Card.vue'
 import AddButton from './components/AddButton.vue';
 import AddNewNote from './components/AddNewNote.vue';
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import SearchInput from './components/SearchInput.vue';
+
 
 const isVisible = ref(false);
 const notes = ref([])
+const word = ref('')
+
+function onSearch(value){
+  word.value = value
+}
+
 
 function addNote(title, content) {
   let note = {
     title: title,
     content: content,
-    time: (new Date()).toLocaleDateString()
+    time: (new Date()).toLocaleString()
   }
 
   notes.value.push(note);
+  isVisible.value = false
+  localStorage.setItem('notes', JSON.stringify(notes.value))
 }
 
 const togglePopup = () => {
   isVisible.value = !isVisible.value
 }
 
+const removeNote = (index) => {
+  notes.value.splice(index, 1)
+  localStorage.setItem('notes', JSON.stringify(notes.value))
+}
+
+onMounted(()=>{
+  let savedNotes = localStorage.getItem('notes')
+  if(savedNotes){
+    let obj = JSON.parse(savedNotes)
+    notes.value = obj
+  }
+})
+
+const filteredNotes = computed(() => notes.value.filter(
+  (item) => item.title.includes(word.value)
+))
 </script>
 
 <style>
@@ -80,5 +110,11 @@ h1 {
   gap: 26px;
   flex-wrap: wrap;
   justify-content: center;
+}
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
